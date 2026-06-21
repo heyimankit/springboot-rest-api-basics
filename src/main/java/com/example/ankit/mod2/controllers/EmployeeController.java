@@ -8,10 +8,10 @@ import java.time.LocalDate;
 @RestController
 @RequestMapping(path="/employees")
 public class EmployeeController {
-//    @GetMapping(path="/getSecretMessage")
-//    public String getSecretMessage(){
-//        return "Secret Message: hello";
-//    }
+      @GetMapping(path="/getSecretMessage")
+      public String getSecretMessage(){
+          return "Secret Message: hello";
+     }
     @GetMapping(path= "/{employeeId}")
     public EmployeeDTO getEmployeeByID(@PathVariable Long employeeId){
         return new EmployeeDTO(employeeId,"Ankit","ankit@gmail.com",21, LocalDate.of(2026,06,20), true);
