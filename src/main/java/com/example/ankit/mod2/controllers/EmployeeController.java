@@ -2,6 +2,7 @@ package com.example.ankit.mod2.controllers;
 
 import com.example.ankit.mod2.dto.EmployeeDTO;
 import com.example.ankit.mod2.entities.EmployeeEntity;
+import com.example.ankit.mod2.exceptions.ResourceNotFoundException;
 import com.example.ankit.mod2.repositories.EmployeeRepository;
 import com.example.ankit.mod2.services.EmployeeService;
 import jakarta.validation.Valid;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
@@ -36,7 +38,7 @@ public class EmployeeController {
         Optional<EmployeeDTO> employeeDTO = employeeService.getEmployeeById(employeeId);
         return employeeDTO
                 .map(employeeDTO1 -> ResponseEntity.ok(employeeDTO1))
-                .orElse(ResponseEntity.notFound().build());
+                .orElseThrow(()-> new ResourceNotFoundException("Employee Not Found with id: "+employeeId));
     }
 
     @GetMapping
